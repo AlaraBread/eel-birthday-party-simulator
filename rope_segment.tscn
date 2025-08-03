@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3dovd3yw8sgi"]
+
+[ext_resource type="Script" uid="uid://diodk54qjt1e2" path="res://eel_segment.gd" id="1_gruai"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_di24j"]
+size = Vector2(8, 30)
+
+[node name="RopeSegment" type="RigidBody2D"]
+mass = 0.002
+linear_damp = 4.517
+script = ExtResource("1_gruai")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_di24j")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -4.0
+offset_top = -15.0
+offset_right = 4.0
+offset_bottom = 15.0
+color = Color(0.94902, 0.941176, 0.827451, 1)

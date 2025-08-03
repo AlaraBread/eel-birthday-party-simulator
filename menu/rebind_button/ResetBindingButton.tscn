@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://jqm4bewa82yl"]
+
+[ext_resource type="Script" uid="uid://81crjfwqrgw6" path="res://menu/rebind_button/ResetBindingButton.gd" id="1_5vueu"]
+
+[node name="ResetBindingButton" type="Button"]
+anchors_preset = -1
+anchor_right = 0.131836
+anchor_bottom = 0.0516667
+offset_right = -135.0
+offset_bottom = -31.0
+text = "Reset To Default"
+script = ExtResource("1_5vueu")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="." to="." method="_on_reset_binding_button_pressed"]

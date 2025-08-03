@@ -1,0 +1,120 @@
+[gd_scene load_steps=12 format=3 uid="uid://cus0kosw6xx8u"]
+
+[ext_resource type="Script" uid="uid://krdimamx0ni2" path="res://balloon.gd" id="1_n2rxu"]
+[ext_resource type="Texture2D" uid="uid://kh05c6exsbun" path="res://assets/balloon/Balloon-Sheet.png" id="2_r345k"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mv2x6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4emby"]
+atlas = ExtResource("2_r345k")
+region = Rect2(0, 64, 56, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj3vs"]
+atlas = ExtResource("2_r345k")
+region = Rect2(112, 64, 56, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxbh2"]
+atlas = ExtResource("2_r345k")
+region = Rect2(224, 64, 56, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nd2f"]
+atlas = ExtResource("2_r345k")
+region = Rect2(0, 0, 56, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2iu8"]
+atlas = ExtResource("2_r345k")
+region = Rect2(112, 0, 56, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xemn"]
+atlas = ExtResource("2_r345k")
+region = Rect2(224, 0, 56, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_788im"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4emby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj3vs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxbh2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nd2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2iu8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xemn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4emby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj3vs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxbh2")
+}],
+"loop": false,
+"name": &"inflate",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4emby"]
+radius = 69.0
+
+[node name="Balloon" type="RigidBody2D"]
+collision_layer = 9
+collision_mask = 9
+mass = 0.01
+contact_monitor = true
+max_contacts_reported = 4
+script = ExtResource("1_n2rxu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_mv2x6")
+disabled = true
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(0, 20)
+
+[node name="RayCast2D2" type="RayCast2D" parent="Raycasts"]
+rotation = 1.21896
+target_position = Vector2(0, 20)
+
+[node name="RayCast2D3" type="RayCast2D" parent="Raycasts"]
+rotation = 2.48464
+target_position = Vector2(0, 20)
+
+[node name="RayCast2D4" type="RayCast2D" parent="Raycasts"]
+rotation = 3.67897
+target_position = Vector2(0, 20)
+
+[node name="RayCast2D5" type="RayCast2D" parent="Raycasts"]
+rotation = 5.15933
+target_position = Vector2(0, 20)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, 6)
+scale = Vector2(1.37942, 1.37942)
+sprite_frames = SubResource("SpriteFrames_788im")
+animation = &"inflate"
+
+[node name="SpawnArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnArea"]
+shape = SubResource("CircleShape2D_4emby")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

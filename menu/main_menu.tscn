@@ -1,0 +1,114 @@
+[gd_scene load_steps=6 format=3 uid="uid://bu8bhluswqfw6"]
+
+[ext_resource type="Script" path="res://menu/main_menu.gd" id="1_8gy84"]
+[ext_resource type="Theme" uid="uid://vdwaa6ypjy3p" path="res://menu/theme.tres" id="1_ij7vn"]
+[ext_resource type="PackedScene" uid="uid://blewiatnactsc" path="res://water.tscn" id="3_yjgyn"]
+[ext_resource type="PackedScene" uid="uid://c0yebngrkdj3" path="res://menu/audio_slider/AudioSlider.tscn" id="4_1x3cv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ij7vn"]
+font_size = 24
+
+[node name="MainMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ij7vn")
+script = ExtResource("1_8gy84")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 4
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+audio_listener_enable_2d = true
+size = Vector2i(72, 40)
+render_target_update_mode = 4
+
+[node name="Water" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_yjgyn")]
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+zoom = Vector2(0.3, 0.3)
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = 2.5
+offset_right = 43.0
+offset_bottom = 29.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "play"
+
+[node name="Settings" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.0
+offset_top = 34.5
+offset_right = 43.0
+offset_bottom = 61.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "settings"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.00617282
+anchor_right = 1.0
+anchor_bottom = 0.0432099
+offset_bottom = 57.0
+grow_horizontal = 2
+text = "eel birthday party
+simulator"
+label_settings = SubResource("LabelSettings_ij7vn")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AudioSlider" parent="." instance=ExtResource("4_1x3cv")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+text = ""
+
+[node name="AudioSlider2" parent="." instance=ExtResource("4_1x3cv")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+bus_name = "Music"
+text = ""
+
+[node name="AudioSlider3" parent="." instance=ExtResource("4_1x3cv")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+bus_name = "SFX"
+text = ""
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]

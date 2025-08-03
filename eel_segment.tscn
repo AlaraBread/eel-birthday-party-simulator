@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://bw0g6nysm034c"]
+
+[ext_resource type="Script" uid="uid://diodk54qjt1e2" path="res://eel_segment.gd" id="1_b7ayw"]
+[ext_resource type="AudioStream" uid="uid://blydpwwpxhekr" path="res://assets/fish_slaps/fish-slap-hard-1.wav" id="2_7mfhu"]
+[ext_resource type="AudioStream" uid="uid://bm6fncpvcdtxo" path="res://assets/fish_slaps/fish-slap-hard-2.wav" id="3_hatee"]
+[ext_resource type="AudioStream" uid="uid://ns7nq36gnypk" path="res://assets/fish_slaps/fish-slap-soft-1.wav" id="4_oymic"]
+[ext_resource type="AudioStream" uid="uid://f62p5pkadvkj" path="res://assets/fish_slaps/fish-slap-soft-2.wav" id="5_5e672"]
+[ext_resource type="AudioStream" uid="uid://ds3qtocqrfykg" path="res://assets/fish_slaps/fish-slap-soft-3.wav" id="6_fa8ow"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_di24j"]
+size = Vector2(8, 15)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8h78b"]
+streams_count = 5
+stream_0/stream = ExtResource("2_7mfhu")
+stream_1/stream = ExtResource("3_hatee")
+stream_2/stream = ExtResource("4_oymic")
+stream_3/stream = ExtResource("5_5e672")
+stream_4/stream = ExtResource("6_fa8ow")
+
+[node name="EelSegment" type="RigidBody2D"]
+mass = 0.002
+contact_monitor = true
+max_contacts_reported = 3
+linear_damp = 4.517
+script = ExtResource("1_b7ayw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_di24j")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -4.0
+offset_top = -7.5
+offset_right = 4.0
+offset_bottom = 7.5
+color = Color(0.329412, 0.298039, 0.286275, 1)
+
+[node name="SlapPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_8h78b")
+bus = &"SFX"
+
+[node name="SlapCooldown" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true

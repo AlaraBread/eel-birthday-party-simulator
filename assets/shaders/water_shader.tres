@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://dh6ng5pye4kr8"]
+
+[ext_resource type="Shader" path="res://assets/shaders/water.gdshader" id="1_fkk8c"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ir0s3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_auei6"]
+seamless = true
+noise = SubResource("FastNoiseLite_ir0s3")
+
+[sub_resource type="Gradient" id="Gradient_51jxf"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.321364, 0.587074, 0.836625)
+colors = PackedColorArray(0.107337, 0.444885, 0.786585, 1, 0.120351, 0.488609, 0.793602, 1, 0.147271, 0.550922, 0.833965, 1, 0.153923, 0.594717, 0.839318, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tw4ye"]
+noise_type = 2
+frequency = 0.02
+fractal_octaves = 2
+fractal_gain = 0.566
+cellular_return_type = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xqnwo"]
+seamless = true
+color_ramp = SubResource("Gradient_51jxf")
+noise = SubResource("FastNoiseLite_tw4ye")
+
+[resource]
+shader = ExtResource("1_fkk8c")
+shader_parameter/water_texture = SubResource("NoiseTexture2D_xqnwo")
+shader_parameter/warp_texture = SubResource("NoiseTexture2D_auei6")

@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2u2lx77v5ha3"]
+
+[ext_resource type="Texture2D" uid="uid://br5vcba15f2v0" path="res://assets/balloon/Balloon_pop-Sheet.png" id="1_ndy2p"]
+[ext_resource type="AudioStream" uid="uid://f5pjix1ogsh0" path="res://assets/balloon/waterPlop1.wav" id="2_b526i"]
+[ext_resource type="Script" uid="uid://bm4pfc514udh0" path="res://pop.gd" id="2_hy3p8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b526i"]
+atlas = ExtResource("1_ndy2p")
+region = Rect2(0, 0, 56, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hy3p8"]
+atlas = ExtResource("1_ndy2p")
+region = Rect2(112, 0, 56, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adenh"]
+atlas = ExtResource("1_ndy2p")
+region = Rect2(168, 0, 56, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y3gky"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b526i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hy3p8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adenh")
+}],
+"loop": false,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="Pop" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_y3gky")
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
+script = ExtResource("2_hy3p8")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_b526i")
+autoplay = true
+bus = &"SFX"

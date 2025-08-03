@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ci5all7yn7tkt"
+path="res://.godot/imported/Meatball Parade.mp3-cf9a06418b3b287c55e18e51758efbca.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Meatball Parade.mp3"
+dest_files=["res://.godot/imported/Meatball Parade.mp3-cf9a06418b3b287c55e18e51758efbca.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

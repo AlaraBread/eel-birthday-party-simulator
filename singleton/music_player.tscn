@@ -1,0 +1,22 @@
+[gd_scene load_steps=7 format=3 uid="uid://4tbue7c21plt"]
+
+[ext_resource type="AudioStream" uid="uid://ci5all7yn7tkt" path="res://assets/music/Meatball Parade.mp3" id="1_u8ia0"]
+[ext_resource type="AudioStream" uid="uid://3tqvqa521xf" path="res://assets/music/Moon Lounge Omicron Prime.mp3" id="2_a2ugy"]
+[ext_resource type="AudioStream" uid="uid://c8ebk0h44nqqu" path="res://assets/music/Pixel Peeker Polka - faster.mp3" id="3_nqnhx"]
+[ext_resource type="AudioStream" uid="uid://cd8iq0ulm1hgw" path="res://assets/music/Run Amok.mp3" id="4_vnyht"]
+[ext_resource type="AudioStream" uid="uid://f5v6n14aw4tv" path="res://assets/music/The Builder.mp3" id="5_o5jr7"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_4hl0s"]
+shuffle = true
+stream_count = 5
+stream_0 = ExtResource("1_u8ia0")
+stream_1 = ExtResource("2_a2ugy")
+stream_2 = ExtResource("3_nqnhx")
+stream_3 = ExtResource("4_vnyht")
+stream_4 = ExtResource("5_o5jr7")
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+process_mode = 3
+stream = SubResource("AudioStreamPlaylist_4hl0s")
+autoplay = true
+bus = &"Music"

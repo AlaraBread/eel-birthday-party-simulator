@@ -1,0 +1,277 @@
+[gd_scene load_steps=16 format=3 uid="uid://dr37o18nj7gav"]
+
+[ext_resource type="Script" uid="uid://crx0sm4ger44i" path="res://level.gd" id="1_f2txt"]
+[ext_resource type="PackedScene" uid="uid://baljrdas05vuv" path="res://eel.tscn" id="1_oi3di"]
+[ext_resource type="PackedScene" uid="uid://blewiatnactsc" path="res://water.tscn" id="2_1ainy"]
+[ext_resource type="Script" uid="uid://d7n5kx2obotl" path="res://balloon_spawner.gd" id="3_f2txt"]
+[ext_resource type="Script" uid="uid://bahqscgebvsep" path="res://rope.gd" id="4_f2txt"]
+[ext_resource type="Theme" uid="uid://vdwaa6ypjy3p" path="res://menu/theme.tres" id="6_1ainy"]
+[ext_resource type="Script" uid="uid://wg63vvygi6sr" path="res://menu/win_menu.gd" id="7_km5ld"]
+[ext_resource type="Shader" uid="uid://b28pl3odd1b0e" path="res://assets/shaders/shadow.gdshader" id="7_n6hdu"]
+[ext_resource type="Script" uid="uid://ept3aq5ivkkr" path="res://pause_menu.gd" id="9_8cye3"]
+[ext_resource type="AudioStream" uid="uid://dhac4i6lxvp5w" path="res://assets/yay.mp3" id="9_i2t4f"]
+
+[sub_resource type="Gradient" id="Gradient_np88s"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.258065, 0.770609, 1)
+colors = PackedColorArray(0.219608, 0.188235, 0.184314, 1, 0.407843, 0.32549, 0.258824, 1, 0.329412, 0.298039, 0.286275, 1, 0.219608, 0.188235, 0.184314, 1)
+
+[sub_resource type="Curve2D" id="Curve2D_1ainy"]
+_data = {
+"points": PackedVector2Array(-75.694, -66.0309, 75.694, 66.0309, -150, 321, -112.736, 14.4946, 112.736, -14.4946, 122, 344, -25.7682, 86.9676, 25.7682, -86.9676, 405, 125, 33.8207, 43.4838, -33.8207, -43.4838, 359, -65, 59.5889, 33.8207, -59.5889, -33.8207, 201, -205, 77.3045, -12.8841, -77.3045, 12.8841, -23, -213, 35.4312, -48.3153, -35.4312, 48.3153, -202, -49, -24.8498, -69.3274, 24.8498, 69.3274, -231, 209, 0, 0, 0, 0, -150, 321)
+}
+point_count = 9
+
+[sub_resource type="Gradient" id="Gradient_2tm7p"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.491409, 1)
+colors = PackedColorArray(0.941176, 0.941176, 0.839216, 1, 0.927653, 0.927263, 0.802435, 1, 0.941176, 0.941176, 0.839216, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_km5ld"]
+shader = ExtResource("7_n6hdu")
+shader_parameter/strength = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_n6hdu"]
+font_size = 20
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_f2txt")
+
+[node name="Parallax2D" parent="." instance=ExtResource("2_1ainy")]
+
+[node name="Eel" parent="." instance=ExtResource("1_oi3di")]
+position = Vector2(0, 96)
+gradient = SubResource("Gradient_np88s")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="BalloonSpawner" type="Marker2D" parent="."]
+script = ExtResource("3_f2txt")
+balloon_colors = Array[Color]([Color(0.866667, 0.129412, 0.490196, 1), Color(1, 0.372549, 0, 1), Color(1, 0.690196, 0.0509804, 1)])
+
+[node name="Timer" type="Timer" parent="BalloonSpawner"]
+wait_time = 0.3
+autostart = true
+
+[node name="Rope" type="Path2D" parent="."]
+unique_name_in_owner = true
+curve = SubResource("Curve2D_1ainy")
+script = ExtResource("4_f2txt")
+gradient = SubResource("Gradient_2tm7p")
+
+[node name="BirthdayTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="WinMenu" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_1ainy")
+script = ExtResource("7_km5ld")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/WinMenu"]
+material = SubResource("ShaderMaterial_km5ld")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/WinMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.0246914
+anchor_right = 0.5
+anchor_bottom = 0.0246914
+offset_left = -93.0
+offset_right = 93.0
+offset_bottom = 20.0
+grow_horizontal = 2
+text = "you made it another year!"
+label_settings = SubResource("LabelSettings_n6hdu")
+metadata/_edit_use_anchors_ = true
+
+[node name="NextLevel" type="Button" parent="CanvasLayer/WinMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = 3.0
+offset_right = 54.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "next year"
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/WinMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = 34.5
+offset_right = 54.0
+offset_bottom = 61.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "main menu"
+
+[node name="LoseMenu" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_1ainy")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/LoseMenu"]
+material = SubResource("ShaderMaterial_km5ld")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/LoseMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_right = 131.0
+offset_bottom = 81.0
+grow_horizontal = 2
+text = "you didnt gather enough whimsy to make it another year :("
+label_settings = SubResource("LabelSettings_n6hdu")
+autowrap_mode = 3
+
+[node name="YearLabel" type="Label" parent="CanvasLayer/LoseMenu"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_top = 73.0
+offset_right = 136.0
+offset_bottom = 106.0
+grow_horizontal = 2
+rotation = -0.117876
+text = "you lasted 5 years"
+label_settings = SubResource("LabelSettings_n6hdu")
+autowrap_mode = 3
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/LoseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = 41.0
+offset_right = 54.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "main menu"
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_1ainy")
+script = ExtResource("9_8cye3")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PauseMenu"]
+material = SubResource("ShaderMaterial_km5ld")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_right = 131.0
+offset_bottom = 25.0
+grow_horizontal = 2
+text = "paused"
+label_settings = SubResource("LabelSettings_n6hdu")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Unpause" type="Button" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = -13.5
+offset_right = 61.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "unpause"
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = 18.5
+offset_right = 61.5
+offset_bottom = 45.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "main menu"
+
+[node name="YayPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("9_i2t4f")
+bus = &"SFX"
+
+[connection signal="timeout" from="BalloonSpawner/Timer" to="BalloonSpawner" method="_on_timer_timeout"]
+[connection signal="timeout" from="BirthdayTimer" to="." method="_on_birthday_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/WinMenu/NextLevel" to="CanvasLayer/WinMenu" method="_on_next_level_pressed"]
+[connection signal="pressed" from="CanvasLayer/WinMenu/MainMenu" to="CanvasLayer/WinMenu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/LoseMenu/MainMenu" to="CanvasLayer/WinMenu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Unpause" to="CanvasLayer/PauseMenu" method="_on_unpause_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/MainMenu" to="CanvasLayer/WinMenu" method="_on_main_menu_pressed"]
