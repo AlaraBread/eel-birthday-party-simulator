@@ -67,8 +67,6 @@ pause={
 2d/run_on_separate_thread=true
 2d/physics_engine="Rapier2D"
 2d/default_gravity=0.0
-rapier/solver/num_internal_stabilization_iterations=4
-rapier/solver/num_iterations=8
 
 [rendering]
 
