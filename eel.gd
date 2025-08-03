@@ -23,7 +23,7 @@ func _ready():
 	$Camera/Camera.position_smoothing_enabled = false
 	last_segment.make_tail()
 	_process(INF)
-	$Camera/Camera.set_deferred("position_smoothing_enabled", true)
+	#$Camera/Camera.set_deferred("position_smoothing_enabled", true)
 
 func spawn_segment(t: Transform2D, prev_segment):
 	var next_segment := preload("res://eel_segment.tscn").instantiate()
